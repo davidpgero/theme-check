@@ -64,7 +64,11 @@ module ThemeCheck
         next if exclude_categories.include?(check_class.category)
         next if only_categories.any? && !only_categories.include?(check_class.category)
 
-        check = check_class.new(**options)
+        check = if options.empty?
+          check_class.new
+        else
+          check_class.new(**options)
+        end
         check.options = options
         checks << check
       end
